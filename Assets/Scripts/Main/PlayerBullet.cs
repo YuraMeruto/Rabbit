@@ -11,37 +11,49 @@ public class PlayerBullet : MonoBehaviour
     CollisionManager collisonManagerScript;
     [SerializeField]
     PlayerStatus playerStatusScript;
-    [SerializeField]
+    [SerializeField]   
     bool isMove = false;
+    [SerializeField]
+    BulletStatus bulletStatusScript;
+    int count = 0;
     void Update()
     {
-        Move();
-    }
-    public void Fire(float force, Vector3 direction)
-    {
-        playerStatusScript.SetBulletForce(force,direction,true);
+        CheckMove();
     }
 
-    void Move()
+    public void Fire(float force, Vector3 direction)
     {
-        if(playerStatusScript.GetIsMove())
+        rb2.AddForce(direction * force * 1000);
+        bulletStatusScript.SetStatus(BulletStatus.Status.Moveing);
+        playerStatusScript.SetIsMove(false);
+        playerStatusScript.BoardManagerAddMoveList();
+    }
+
+    void CheckMove()
+    {
+        BulletStatus.Status status = bulletStatusScript.GetStatus();
+        Vector2 force = rb2.velocity;
+        float quatunion = rb2.angularVelocity;
+        if (status == BulletStatus.Status.Moveing)
         {
-            float force = playerStatusScript.GetForce();
-            Vector2 diff = playerStatusScript.GetDiff();
-            transform.Translate(diff * force, Space.World);
-            playerStatusScript.ForceCount();
+            if (count == 0)
+            {
+
+                count++;
+            }
+
+            else if (force == Vector2.zero && quatunion == 0.0f)
+            {
+                Debug.Log("STOP");
+                bulletStatusScript.SetStatus(BulletStatus.Status.Stop);
+                playerStatusScript.BoardManagerCheckMoveList();
+                count = 0;
+            }
         }
     }
 
-    public void Bound(float boundforce)
-    {
-        Vector3 getdiff = playerStatusScript.GetDiff();
-        playerStatusScript.SetForce(boundforce);
-        playerStatusScript.SetDiff(-getdiff);
-    }
-    
     void OnCollisionEnter2D(Collision2D col)
     {
-        collisonManagerScript.CollisionHitPlayer(gameObject, col.gameObject);
+        collisonManagerScript.CollisionHitPlayer(gameObject, col.gameObject,playerStatusScript);
     }
 }

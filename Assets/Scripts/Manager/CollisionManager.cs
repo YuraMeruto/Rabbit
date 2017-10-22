@@ -11,11 +11,18 @@ public class CollisionManager : MonoBehaviour {
 
     [SerializeField]
     BoundManager boundManagerScript;
-
+    [SerializeField]
+    BoardManager boardManagerScript;
+    [SerializeField]
+    EnemyManager enemyManagerScript;
+    [SerializeField]
+    UIManager uiManagerScript;
+    [SerializeField]
+    ScoreManager scoreManagerScript;
     /// <summary>
     /// プレイヤーがほかのオブジェクトあった時のメソッド
     /// </summary>
-    public void CollisionHitPlayer(GameObject playerobj,GameObject hitobj)
+    public void CollisionHitPlayer(GameObject playerobj,GameObject hitobj,PlayerStatus status)
     {/*
         if (hitobj.tag == "Bound")
         {
@@ -31,23 +38,34 @@ public class CollisionManager : MonoBehaviour {
             playerobj.GetComponent<PlayerStatus>().InvertedDiff();
             playerobj.GetComponent<PlayerStatus>().SetDiff(pos);
         }
-        else if (hitobj.tag == "Enemy")
-        {
-            playerobj.GetComponent<PlayerStatus>().InvertedDiff();
-            hitobj.GetComponent<Enemy>().Force(playerobj);
-        }
         */
+        playerobj.GetComponent<PlayerStatus>().ResetCount();
     }
 
     /// <summary>
     /// 敵がほかのオブジェクトに当たったときのオブジェクト
     /// </summary>
-    public void CollisionHitEnemy(GameObject enemyobj, GameObject hitobj)
+    public void CollisionHitEnemy(GameObject enemyobj, GameObject hitobj,BulletStatus status,EnemyStatus enemystatus)
     {
         if(hitobj.tag == "Wall")
         {
-            enemyobj.GetComponent<EnemyStatus>().InvertedDiff();
+            scoreManagerScript.AddScore(enemystatus.GetScore());
+            enemyManagerScript.RemoveEnemy(enemyobj);
+            boardManagerScript.CheckMoveList(enemyobj);
         }
-    }
 
+        else if(hitobj.tag == "Player")
+        {
+            status.SetStatus(BulletStatus.Status.Moveing);
+            boardManagerScript.AddMoveList(enemyobj);
+        }
+
+        else if (hitobj.tag == "Enemy")
+        {
+            status.SetStatus(BulletStatus.Status.Moveing);
+            boardManagerScript.AddMoveList(enemyobj);
+            enemystatus.SetIsCheck(false);
+        }
+
+    }
 }

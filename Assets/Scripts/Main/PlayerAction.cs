@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class PlayerAction : MonoBehaviour
 {
+    [SerializeField]
     bool isCharge = true;
     float addForce = 0.0f;
     [SerializeField]
@@ -16,6 +17,8 @@ public class PlayerAction : MonoBehaviour
     Vector2 buttonDownPosition;
     [SerializeField]
     PlayerStatus playerStatusScript;
+
+
     void Update()
     {
         Key();
@@ -27,29 +30,36 @@ public class PlayerAction : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             buttonDownPosition = Input.mousePosition;
-            isCharge = true;
         }
 
         else if (Input.GetMouseButtonUp(0))
         {
-            isCharge = false;
             Fire();
         }
     }
 
     void Charge()
     {
-        if(isCharge)
+        if (isCharge)
         {
             addForce += Time.deltaTime;
         }
     }
     void Fire()
     {
-        Vector2 buttonupPos = Input.mousePosition;
-        Vector2 direction = (buttonDownPosition - buttonupPos).normalized;
-        playerBulletScript.Fire(addForce,direction);
-        playerStatusScript.Subtraction();
-        addForce = 0.0f;
+        if (playerStatusScript.GetCount() != 0 && isCharge)
+        {
+            Vector2 buttonupPos = Input.mousePosition;
+            Vector2 direction = (buttonDownPosition - buttonupPos).normalized;
+            playerBulletScript.Fire(addForce, direction);
+            playerStatusScript.Subtraction();
+            addForce = 0.0f;
+            isCharge = false;
+        }
+    }
+
+    public void SetIsCharge(bool set)
+    {
+        isCharge = set;
     }
 }

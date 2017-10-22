@@ -8,13 +8,20 @@ public class UIManager : MonoBehaviour {
     PlayerManager playerManagerScript;
     [SerializeField]
     PlayerUI playerUIScript;
+    [SerializeField]
+    ScoreUI scoreUIScript;
     public int GetPlayerCount()
     {
         return playerManagerScript.GetPlayerCount();
     }
-
+    
     public void CountUpdate()
     {
         playerUIScript.CountUpdate();
+    }
+
+    public void ScoreUpdate()
+    {
+        scoreUIScript.ScoreUpdate();
     }
 }

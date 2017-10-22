@@ -13,6 +13,11 @@ public class EnemyStatus : MonoBehaviour {
     float force;
     bool isMove;
     Vector3 diff;
+    [SerializeField]
+    int score;
+    [SerializeField]
+    EnemyManager enemyManagerScript;
+    bool isCheck = false;
 
     public void SetForce(float set)
     {
@@ -22,13 +27,6 @@ public class EnemyStatus : MonoBehaviour {
     public float GetForce()
     {
         return force;
-    }
-
-    public void SetBulletForce(float setforce, Vector2 setdiff, bool setismove)
-    {
-        force = setforce;
-        diff = setdiff;
-        isMove = setismove;
     }
 
     public void SetIsMove(bool set)
@@ -56,12 +54,23 @@ public class EnemyStatus : MonoBehaviour {
         return isMove;
     }
 
-    public void ForceCount()
+    public void BoardMasterCheckMoveList()
     {
-        force -= Time.deltaTime;
-        if(force <=0.0f)
-            {
-            isMove = false;
-            }
+        enemyManagerScript.CheckMoveList(gameObject);
+    }
+
+    public bool GetIsCheck()
+    {
+        return isCheck;
+    }
+
+    public void SetIsCheck(bool set)
+    {
+        isCheck = set;
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 }
