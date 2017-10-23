@@ -17,6 +17,8 @@ public class PlayerManager : MonoBehaviour {
     BoardManager boardManagerScript;
     [SerializeField]
     PlayerAction playerActionScript;
+    [SerializeField]
+    SceneManager sceneManagerScript;
     public int GetPlayerCount()
     {
         return playerStatusScript.GetCount();
@@ -37,8 +39,23 @@ public class PlayerManager : MonoBehaviour {
         boardManagerScript.CheckMoveList(obj);
     }
 
-    public void SetIsCharge(bool set)
+    public void SetIsAction(bool set)
     {
-        playerActionScript.SetIsCharge(set);
+        playerActionScript.SetIsAction(set);
+    }
+
+    public void ChargeGageUpdate(float value)
+    {
+        uiManagerScript.ChargeGageUpdate(value);
+    }
+
+    public void SendScore()
+    {
+        playerActionScript.SendRequest();
+    }
+
+    public void SceneStage(SceneManager.SceneName status)
+    {
+        sceneManagerScript.SceneStage(status);
     }
 }

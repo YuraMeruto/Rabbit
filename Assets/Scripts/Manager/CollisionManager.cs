@@ -38,8 +38,7 @@ public class CollisionManager : MonoBehaviour {
             playerobj.GetComponent<PlayerStatus>().InvertedDiff();
             playerobj.GetComponent<PlayerStatus>().SetDiff(pos);
         }
-        */
-        playerobj.GetComponent<PlayerStatus>().ResetCount();
+     */
     }
 
     /// <summary>

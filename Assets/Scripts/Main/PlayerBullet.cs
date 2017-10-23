@@ -23,7 +23,8 @@ public class PlayerBullet : MonoBehaviour
 
     public void Fire(float force, Vector3 direction)
     {
-        rb2.AddForce(direction * force * 1000);
+        Vector2 addforce = direction * force * playerStatusScript.GetAddForceRate();
+        rb2.AddForce(addforce);
         bulletStatusScript.SetStatus(BulletStatus.Status.Moveing);
         playerStatusScript.SetIsMove(false);
         playerStatusScript.BoardManagerAddMoveList();

@@ -7,17 +7,20 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]
     int count;
     [SerializeField]
-    float copyForceCount;
-    [SerializeField]
-    float forceCount;
-    [SerializeField]
     PlayerManager playerManagerScript;
     Vector3 diff;
     [SerializeField]
     float force;
     [SerializeField]
     bool isMove;
-
+    [SerializeField]
+    float addForceRate;
+    [SerializeField]
+    SceneManager sceneManagerscript;
+    public float GetAddForceRate()
+    {
+        return addForceRate;
+    }
 
     public void Subtraction()
     {
@@ -75,20 +78,7 @@ public class PlayerStatus : MonoBehaviour
         }
     }
 
-    public void ResetCount()
-    {
-        forceCount = copyForceCount;
-    }
-
-    public void SetForceCount(float set)
-    {
-        forceCount = set;
-    }
-
-    public float GetForceCount()
-    {
-        return forceCount;
-    }
+  
 
     public void SetIsMove(bool set)
     {
@@ -104,5 +94,17 @@ public class PlayerStatus : MonoBehaviour
     {
         playerManagerScript.CheckMoveList(gameObject);
     }
+
+    public void UIManagerChargeGageUpdate(float value)
+    {
+        playerManagerScript.ChargeGageUpdate(value);
+    }
+
+    public void SceneStage(SceneManager.SceneName status)
+    {
+        playerManagerScript.SceneStage(status);
+    }
+
+
 }
 

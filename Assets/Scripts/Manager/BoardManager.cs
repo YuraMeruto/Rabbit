@@ -16,7 +16,7 @@ public class BoardManager : MonoBehaviour {
 
     void ClearMoveList()
     {
-        playerManagerScript.SetIsCharge(true);
+        playerManagerScript.SetIsAction(true);
         moveList.Clear();
     }
 

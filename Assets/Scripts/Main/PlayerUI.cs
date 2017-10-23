@@ -8,7 +8,8 @@ public class PlayerUI : MonoBehaviour {
     Text playerUI;
     [SerializeField]
     UIManager uiManagerScript;
-
+    [SerializeField]
+    Slider chargeGage;
     void Start()
     {
         CountUpdate();
@@ -27,4 +28,8 @@ public class PlayerUI : MonoBehaviour {
         }
     }
 
+    public void ChargeGageUpdate(float gage)
+    {
+        chargeGage.value = gage;
+    }
 }

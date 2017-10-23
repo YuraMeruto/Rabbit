@@ -6,30 +6,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Threading;
 public class PlayerAction : MonoBehaviour
 {
     [SerializeField]
-    bool isCharge = true;
+    bool isCharge = false;
+    [SerializeField]
+    bool isAction = true;
     float addForce = 0.0f;
     [SerializeField]
     PlayerBullet playerBulletScript;
     Vector2 buttonDownPosition;
     [SerializeField]
     PlayerStatus playerStatusScript;
-
-
+    [SerializeField]
+    float addForceSpeed;
+    [SerializeField]
+    PostRequest postRequestScript;
+    [SerializeField]
+    ReadData readDataScript;
+    bool isScene = false;
+    SceneManager.SceneName sceneStatus;
     void Update()
     {
         Key();
         Charge();
+        Scene();
     }
 
     void Key()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isAction)
         {
             buttonDownPosition = Input.mousePosition;
+            isCharge = true;
+            isAction = false;
         }
 
         else if (Input.GetMouseButtonUp(0))
@@ -42,9 +53,15 @@ public class PlayerAction : MonoBehaviour
     {
         if (isCharge)
         {
-            addForce += Time.deltaTime;
+            addForce += Time.deltaTime * addForceSpeed;
+            if(addForce >= 1.0f)
+            {
+                addForce = 0.0f;
+            }
+            playerStatusScript.UIManagerChargeGageUpdate(addForce);
         }
     }
+
     void Fire()
     {
         if (playerStatusScript.GetCount() != 0 && isCharge)
@@ -58,8 +75,43 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-    public void SetIsCharge(bool set)
+    public void SetIsAction(bool set)
     {
-        isCharge = set;
+        isAction = set;
+    }
+    void Scene()
+    {
+        if(isScene)
+        {
+            playerStatusScript.SceneStage(sceneStatus);
+        }
+    }
+
+    public void SendRequest()
+    {
+        string result = readDataScript.Read();
+        string[] splitresult = result.Split(',');
+        Dictionary<string, string> set = new Dictionary<string, string>();
+        set.Add("id", splitresult[0]);
+        string url = "http:/localhost/ScoreResponse,php";
+        postRequestScript.SendData(set, 5, url);
+        Thread postthread = new Thread(ThreadRequest);
+        postthread.Start();
+    }
+
+    void ThreadRequest()
+    {
+        PostRequest.Status result = PostRequest.Status.None;
+        while (postRequestScript.GetStatus() == PostRequest.Status.None)
+        {
+            result = postRequestScript.GetStatus();
+        }
+        switch (result)
+        {
+            case PostRequest.Status.Sucsess:
+                isScene = true;
+                break;
+        }
+
     }
 }

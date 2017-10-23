@@ -24,4 +24,9 @@ public class UIManager : MonoBehaviour {
     {
         scoreUIScript.ScoreUpdate();
     }
+
+    public void ChargeGageUpdate(float value)
+    {
+        playerUIScript.ChargeGageUpdate(value);
+    }
 }

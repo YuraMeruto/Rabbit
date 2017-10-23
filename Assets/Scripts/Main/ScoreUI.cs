@@ -8,6 +8,11 @@ public class ScoreUI : MonoBehaviour {
     Score scoreSciript;
     [SerializeField]
     Text scoreText;
+
+    void Start()
+    {
+        ScoreUpdate();
+    }
     public void ScoreUpdate()
     {
         int score = scoreSciript.GetScore();
