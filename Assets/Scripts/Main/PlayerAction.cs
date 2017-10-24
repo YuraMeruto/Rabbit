@@ -27,6 +27,11 @@ public class PlayerAction : MonoBehaviour
     ReadData readDataScript;
     bool isScene = false;
     SceneManager.SceneName sceneStatus;
+    [SerializeField]
+    GameObject arrowObj;
+    GameObject copyArrowObj;
+    [SerializeField]
+    GameObject playerBulletObj;
     void Update()
     {
         Key();
@@ -38,13 +43,16 @@ public class PlayerAction : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && isAction)
         {
-            buttonDownPosition = Input.mousePosition;
+            buttonDownPosition = Camera.main.WorldToViewportPoint(Input.mousePosition);
             isCharge = true;
             isAction = false;
+            GameObject instanceobj = Instantiate(arrowObj,playerBulletObj.transform.position,Quaternion.identity);
+            copyArrowObj = instanceobj;
         }
 
         else if (Input.GetMouseButtonUp(0))
         {
+            Destroy(copyArrowObj);
             Fire();
         }
     }
@@ -54,7 +62,7 @@ public class PlayerAction : MonoBehaviour
         if (isCharge)
         {
             addForce += Time.deltaTime * addForceSpeed;
-            if(addForce >= 1.0f)
+            if (addForce >= 1.0f)
             {
                 addForce = 0.0f;
             }
@@ -66,10 +74,9 @@ public class PlayerAction : MonoBehaviour
     {
         if (playerStatusScript.GetCount() != 0 && isCharge)
         {
-            Vector2 buttonupPos = Input.mousePosition;
+            Vector2 buttonupPos = Camera.main.WorldToViewportPoint(Input.mousePosition);
             Vector2 direction = (buttonDownPosition - buttonupPos).normalized;
             playerBulletScript.Fire(addForce, direction);
-            playerStatusScript.Subtraction();
             addForce = 0.0f;
             isCharge = false;
         }
@@ -112,6 +119,7 @@ public class PlayerAction : MonoBehaviour
                 isScene = true;
                 break;
         }
-
     }
+
+
 }

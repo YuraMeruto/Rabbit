@@ -8,6 +8,10 @@ public class BoardManager : MonoBehaviour {
     List<GameObject> moveList;
     [SerializeField]
     PlayerManager playerManagerScript;
+    [SerializeField]
+    BGM_SEManager bgm_seManagerScript;
+    [SerializeField]
+    AudioSource managerSource;
     public void AddMoveList(GameObject obj)
     {
         CheckMoveList(obj);
@@ -36,8 +40,10 @@ public class BoardManager : MonoBehaviour {
                 }
             }
         }
-        if(moveList.Count == 0)
+        if(moveList.Count == 0)//動いているオブジェクトが全て止まり終えたときの処理
         {
+            playerManagerScript.CountSubtraction();
+            bgm_seManagerScript.PlaySE(0, managerSource);
             ClearMoveList();
         }
     }
@@ -53,4 +59,5 @@ public class BoardManager : MonoBehaviour {
         }
         return true;
     }
+
 }

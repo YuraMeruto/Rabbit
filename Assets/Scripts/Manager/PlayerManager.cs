@@ -58,4 +58,9 @@ public class PlayerManager : MonoBehaviour {
     {
         sceneManagerScript.SceneStage(status);
     }
+
+    public void CountSubtraction()
+    {
+        playerStatusScript.Subtraction();
+    }
 }

@@ -10,6 +10,8 @@ public class PlayerUI : MonoBehaviour {
     UIManager uiManagerScript;
     [SerializeField]
     Slider chargeGage;
+    [SerializeField]
+    Text remainingText;
     void Start()
     {
         CountUpdate();
@@ -17,7 +19,7 @@ public class PlayerUI : MonoBehaviour {
 
     public void CountUpdate()
     {
-       int count = uiManagerScript.GetPlayerCount();
+        int count = GetPlayerCount();
         if (count == 0)
         {
             playerUI.text = "終了！";
@@ -31,5 +33,10 @@ public class PlayerUI : MonoBehaviour {
     public void ChargeGageUpdate(float gage)
     {
         chargeGage.value = gage;
+    }
+
+    int GetPlayerCount()
+    {
+        return uiManagerScript.GetPlayerCount();
     }
 }
