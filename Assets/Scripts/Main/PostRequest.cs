@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿//////////////////////
+//製作者　名越大樹
+//クラス名　サーバー上のPOSTに送信するクラス
+//////////////////////
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -1,8 +1,9 @@
 ﻿/////////////////////////
 //制作者　名越大樹
 //製作日　10月19日
-//プレイヤーの操作に関する宿里プt
+//プレイヤーの操作に関するスクリプト
 /////////////////////////
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,10 +33,11 @@ public class PlayerAction : MonoBehaviour
     GameObject copyArrowObj;
     [SerializeField]
     GameObject playerBulletObj;
+
     void Update()
     {
         Key();
-        Charge();
+        ChargeUpdate();
         Scene();
     }
 
@@ -57,7 +59,10 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-    void Charge()
+    /// <summary>
+    /// プレイヤーの弾に加える力の更新
+    /// </summary>
+    void ChargeUpdate()
     {
         if (isCharge)
         {
@@ -86,6 +91,10 @@ public class PlayerAction : MonoBehaviour
     {
         isAction = set;
     }
+
+    /// <summary>
+    /// ボード上に敵の弾か残りの弾の残機がゼロになったときの処理
+    /// </summary>
     void Scene()
     {
         if(isScene)

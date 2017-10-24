@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/////////////////////////
+//製作者　名越大樹
+//クラス名 BGM・SEを管理するクラス
+/////////////////////////
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

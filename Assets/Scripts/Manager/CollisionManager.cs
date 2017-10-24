@@ -1,6 +1,6 @@
 ﻿/////////////////////////
 //制作者　名越大樹
-//製作日　10月19日
+//クラス名　ボード上にアルすべての当たり判定のイベントに関するクラス
 /////////////////////////
 
 using System.Collections;
@@ -19,6 +19,7 @@ public class CollisionManager : MonoBehaviour {
     UIManager uiManagerScript;
     [SerializeField]
     ScoreManager scoreManagerScript;
+
     /// <summary>
     /// プレイヤーがほかのオブジェクトあった時のメソッド
     /// </summary>
