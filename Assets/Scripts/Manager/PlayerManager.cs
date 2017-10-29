@@ -19,6 +19,9 @@ public class PlayerManager : MonoBehaviour {
     PlayerAction playerActionScript;
     [SerializeField]
     SceneManager sceneManagerScript;
+    [SerializeField]
+    PostManager postManagerScript;
+
     public int GetPlayerCount()
     {
         return playerStatusScript.GetCount();
@@ -62,5 +65,10 @@ public class PlayerManager : MonoBehaviour {
     public void CountSubtraction()
     {
         playerStatusScript.Subtraction();
+    }
+
+    public void SendRequest(Dictionary<string,string> data,float time,string url)
+    {
+        postManagerScript.SendRequest(data,time,url);
     }
 }
