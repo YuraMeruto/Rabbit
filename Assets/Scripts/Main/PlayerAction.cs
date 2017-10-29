@@ -33,7 +33,10 @@ public class PlayerAction : MonoBehaviour
     GameObject copyArrowObj;
     [SerializeField]
     GameObject playerBulletObj;
-
+    [SerializeField]
+    PlayerManager playerManagerScript;
+    [SerializeField]
+    float requestTime;
     void Update()
     {
         Key();
@@ -48,7 +51,7 @@ public class PlayerAction : MonoBehaviour
             buttonDownPosition = Camera.main.WorldToViewportPoint(Input.mousePosition);
             isCharge = true;
             isAction = false;
-            GameObject instanceobj = Instantiate(arrowObj,playerBulletObj.transform.position,Quaternion.identity);
+            GameObject instanceobj = Instantiate(arrowObj, playerBulletObj.transform.position, Quaternion.identity);
             copyArrowObj = instanceobj;
         }
 
@@ -56,6 +59,11 @@ public class PlayerAction : MonoBehaviour
         {
             Destroy(copyArrowObj);
             Fire();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            SendRequest();
         }
     }
 
@@ -97,7 +105,7 @@ public class PlayerAction : MonoBehaviour
     /// </summary>
     void Scene()
     {
-        if(isScene)
+        if (isScene)
         {
             playerStatusScript.SceneStage(sceneStatus);
         }
@@ -107,12 +115,16 @@ public class PlayerAction : MonoBehaviour
     {
         string result = readDataScript.Read();
         string[] splitresult = result.Split(',');
+        Debug.Log(splitresult[0]);
+        /*
         Dictionary<string, string> set = new Dictionary<string, string>();
         set.Add("id", splitresult[0]);
         string url = "http:/localhost/ScoreResponse,php";
-        postRequestScript.SendData(set, 5, url);
+        playerManagerScript.SendRequest(set,requestTime,url);
         Thread postthread = new Thread(ThreadRequest);
         postthread.Start();
+        */
+
     }
 
     void ThreadRequest()

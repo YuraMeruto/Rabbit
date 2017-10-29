@@ -25,7 +25,7 @@ public class Login : MonoBehaviour
         {
             string data = readDataScript.Read();
             userInfoScript.SetValues(data);
-            if (userInfoScript.GetId() == "1")
+            if (userInfoScript.GetId().Length <= 5)
             {
                 inputFiled.SetActive(true);
                 buttonObj.SetActive(true);
