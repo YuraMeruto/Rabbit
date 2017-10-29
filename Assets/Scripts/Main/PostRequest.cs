@@ -10,6 +10,7 @@ public class PostRequest : MonoBehaviour {
 
     string serverUrl;
     float timeOut;
+    [SerializeField]
     string responseMeesage;
     public enum Status
     {
@@ -17,6 +18,7 @@ public class PostRequest : MonoBehaviour {
         Sucsess,
         Error
     }
+    [SerializeField]
     Status status = Status.None;
 
     public void SendData(Dictionary<string,string> data,float settime,string seturl)
@@ -43,8 +45,8 @@ public class PostRequest : MonoBehaviour {
 
         else
         {
-            status = Status.Sucsess;
             responseMeesage = www.text;
+            status = Status.Sucsess;
             yield return www.text;
         }
     }
@@ -66,7 +68,7 @@ public class PostRequest : MonoBehaviour {
         return status;
     }
 
-    public string GetResPonse()
+    public string GetResponse()
     {
         return responseMeesage;
     }
