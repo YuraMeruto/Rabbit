@@ -20,12 +20,8 @@ public class ReadData : MonoBehaviour
     public string Read()
     {
         StreamReader sr = new StreamReader(Application.dataPath + fileName, Encoding.UTF8);
-        string data = null;
-        while (!sr.EndOfStream)
-        {
-            data += sr.ReadLine();
-        }
-            sr.Close();
+        string data = sr.ReadToEnd();
+        sr.Close();
         return data;
     }
 }

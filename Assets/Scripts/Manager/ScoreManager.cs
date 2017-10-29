@@ -19,5 +19,4 @@ public class ScoreManager : MonoBehaviour {
         scoreScript.AddScore(value);
         uiManagerScript.ScoreUpdate();
     }
-
 }
