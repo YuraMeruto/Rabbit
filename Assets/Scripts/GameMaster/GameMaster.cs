@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameMaster : MonoBehaviour {
+public class GameMaster : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    [SerializeField]
+    bool isGamePlay;
+
+    public void SetIsGamePlay(bool set)
+    {
+        isGamePlay = set;
+    }
+
+    public bool GetIsGamePlay()
+    {
+        return isGamePlay;
+    }
 }

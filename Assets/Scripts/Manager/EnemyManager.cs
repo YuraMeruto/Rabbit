@@ -13,6 +13,7 @@ public class EnemyManager : MonoBehaviour
     SceneManager sceneManagerScript;
     [SerializeField]
     PlayerManager playerManagerScript;
+
     public void SetEnemy(GameObject set)
     {
         enemyList.Add(set);

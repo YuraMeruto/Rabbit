@@ -1,8 +1,8 @@
-﻿/////////////////////////
+﻿/////////////////////////////////
 //制作者　名越大樹
 //製作日　10月19日
 //プレイヤーの操作に関するスクリプト
-/////////////////////////
+////////////////////////////////
 
 using System.Collections;
 using System.Collections.Generic;
@@ -37,6 +37,7 @@ public class PlayerAction : MonoBehaviour
     PlayerManager playerManagerScript;
     [SerializeField]
     float requestTime;
+
     void Update()
     {
         Key();

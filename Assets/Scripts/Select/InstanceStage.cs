@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿//////////////////////////////
+//制作者　名越大樹
+//クラス名　CSVからステージを生成するクラス
+//////////////////////////////
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-public class ReadStage : MonoBehaviour
+public class InstanceStage : MonoBehaviour
 {
-
     [SerializeField]
     ReadData readDataScript;
     [SerializeField]
@@ -18,6 +22,8 @@ public class ReadStage : MonoBehaviour
     int copySideCount;
     [SerializeField]
     InstanceManager instanceManagerScript;
+    const int width = -7;
+    const int height = 10;
 
     void Start()
     {
@@ -28,7 +34,6 @@ public class ReadStage : MonoBehaviour
 
     public void Read(string readdata)
     {
-        Debug.Log(readdata);
         string[] splitdata = readdata.Split(',');
         Instance(splitdata);
     }
@@ -41,25 +46,18 @@ public class ReadStage : MonoBehaviour
             for (int sidecount = 0; sidecount < sideCount; sidecount++)
             {
                 int castdata = int.Parse(data[count]);
-                if(castdata == 3)
-                {
-                    GameObject getobj = instanceManagerScript.GetInstanceObj(castdata);
-                    Instantiate(getobj, instancepos, Quaternion.identity);
-                }
-                else
+                GameObject getobj = instanceManagerScript.GetInstanceObj(castdata);
+                Instantiate(getobj, instancepos, Quaternion.identity);
+                if (castdata != 3)
                 {
                     GameObject backgroundobj = instanceManagerScript.GetInstanceObj(3);
                     Instantiate(backgroundobj, instancepos, Quaternion.identity);
-                    GameObject getobj = instanceManagerScript.GetInstanceObj(castdata);
-                    Instantiate(getobj, instancepos, Quaternion.identity);
-
-
                 }
-                instancepos.x+=10;
+                instancepos.x += height;
                 count++;
             }
-                instancepos.y-=7;
-                instancepos.x = pos.transform.position.x;
+            instancepos.y += width;
+            instancepos.x = pos.transform.position.x;
         }
 
     }

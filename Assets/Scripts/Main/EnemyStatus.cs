@@ -19,6 +19,13 @@ public class EnemyStatus : MonoBehaviour {
     EnemyManager enemyManagerScript;
     bool isCheck = false;
 
+
+    void Start()
+    {
+        enemyManagerScript = GameObject.Find("Managers").GetComponent<EnemyManager>();
+        enemyManagerScript.SetEnemy(gameObject);
+    }
+
     public void SetForce(float set)
     {
         force = set;

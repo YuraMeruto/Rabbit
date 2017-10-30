@@ -3,6 +3,7 @@
 //製作日　10月19日
 //クラス名　プレイヤー全体を管理するクラス
 ////////////////////////////
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,8 +68,16 @@ public class PlayerManager : MonoBehaviour {
         playerStatusScript.Subtraction();
     }
 
+    /// <summary>
+    /// ゲームが終了した時サーバー上にスコアのデータを送る処理
+    /// </summary>
     public void SendRequest(Dictionary<string,string> data,float time,string url)
     {
         postManagerScript.SendRequest(data,time,url);
+    }
+
+    public void SetPlayerStatus(PlayerStatus status)
+    {
+        playerStatusScript = status;
     }
 }

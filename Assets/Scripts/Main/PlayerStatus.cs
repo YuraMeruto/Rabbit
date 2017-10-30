@@ -17,6 +17,13 @@ public class PlayerStatus : MonoBehaviour
     float addForceRate;
     [SerializeField]
     SceneManager sceneManagerscript;
+
+    void Start()
+    {
+        playerManagerScript = GameObject.Find("Managers").GetComponent<PlayerManager>();
+        playerManagerScript.SetPlayerStatus(GetComponent<PlayerStatus>());
+    }
+
     public float GetAddForceRate()
     {
         return addForceRate;
@@ -105,6 +112,9 @@ public class PlayerStatus : MonoBehaviour
         playerManagerScript.SceneStage(status);
     }
 
+    public void SetPlayerScript()
+    {
 
+    }
 }
 
