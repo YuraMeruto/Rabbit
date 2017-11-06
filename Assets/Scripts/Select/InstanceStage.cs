@@ -24,6 +24,10 @@ public class InstanceStage : MonoBehaviour
     InstanceManager instanceManagerScript;
     const int width = -7;
     const int height = 10;
+    [SerializeField]
+    UIManager uiManagerScript;
+    [SerializeField]
+    PlayerManager playerManagerScript;
 
     void Start()
     {
@@ -47,11 +51,15 @@ public class InstanceStage : MonoBehaviour
             {
                 int castdata = int.Parse(data[count]);
                 GameObject getobj = instanceManagerScript.GetInstanceObj(castdata);
-                Instantiate(getobj, instancepos, Quaternion.identity);
+                GameObject instanceobj = Instantiate(getobj, instancepos, Quaternion.identity);
                 if (castdata != 3)
                 {
                     GameObject backgroundobj = instanceManagerScript.GetInstanceObj(3);
                     Instantiate(backgroundobj, instancepos, Quaternion.identity);
+                }
+                if(castdata == 1)
+                {
+                    playerManagerScript.SetPlayerStatus(instanceobj.GetComponent<PlayerStatus>());
                 }
                 instancepos.x += height;
                 count++;
@@ -59,7 +67,6 @@ public class InstanceStage : MonoBehaviour
             instancepos.y += width;
             instancepos.x = pos.transform.position.x;
         }
-
+        uiManagerScript.Ini();
     }
-
 }

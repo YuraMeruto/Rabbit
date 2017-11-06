@@ -12,11 +12,6 @@ public class PlayerUI : MonoBehaviour {
     Slider chargeGage;
     [SerializeField]
     Text remainingText;
-    void Start()
-    {
-        CountUpdate();
-    }
-
     public void CountUpdate()
     {
         int count = GetPlayerCount();

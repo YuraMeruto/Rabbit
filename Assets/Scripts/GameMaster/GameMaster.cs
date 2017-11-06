@@ -7,7 +7,6 @@ public class GameMaster : MonoBehaviour
 
     [SerializeField]
     bool isGamePlay;
-
     public void SetIsGamePlay(bool set)
     {
         isGamePlay = set;
@@ -16,5 +15,10 @@ public class GameMaster : MonoBehaviour
     public bool GetIsGamePlay()
     {
         return isGamePlay;
+    }
+
+    public void Ini()
+    {
+
     }
 }

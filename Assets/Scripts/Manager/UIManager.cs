@@ -29,4 +29,10 @@ public class UIManager : MonoBehaviour {
     {
         playerUIScript.ChargeGageUpdate(value);
     }
+
+    public void Ini()
+    {
+        ScoreUpdate();
+        CountUpdate();
+    }
 }

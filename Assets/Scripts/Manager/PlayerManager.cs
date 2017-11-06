@@ -11,8 +11,6 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour {
 
     [SerializeField]
-    PlayerStatus playerStatusScript;
-    [SerializeField]
     UIManager uiManagerScript;
     [SerializeField]
     BoardManager boardManagerScript;
@@ -22,6 +20,9 @@ public class PlayerManager : MonoBehaviour {
     SceneManager sceneManagerScript;
     [SerializeField]
     PostManager postManagerScript;
+    PlayerStatus playerStatusScript;
+
+
 
     public int GetPlayerCount()
     {
