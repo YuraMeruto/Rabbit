@@ -17,6 +17,8 @@ public class ReadData : MonoBehaviour
     /// 指定されたテキストからデータを取得
     /// </summary>
     /// <returns></returns>
+    /// 
+
     public string Read()
     {
         StreamReader sr = new StreamReader(Application.dataPath + fileName, Encoding.UTF8);
@@ -27,5 +29,14 @@ public class ReadData : MonoBehaviour
         }
             sr.Close();
         return data;
+    }
+
+    public string ResourcesRoadCSV(string data)
+    {
+        var csvdata = Resources.Load(data) as TextAsset;
+        StringReader reader = new StringReader(csvdata.text);
+        string readdata = reader.ReadToEnd();
+        Debug.Log(readdata);
+        return readdata;
     }
 }

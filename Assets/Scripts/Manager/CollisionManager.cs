@@ -40,6 +40,10 @@ public class CollisionManager : MonoBehaviour {
             playerobj.GetComponent<PlayerStatus>().SetDiff(pos);
         }
      */
+     if(hitobj.tag == "Wall")
+        {
+            status.Subtraction();
+        }
     }
 
     /// <summary>

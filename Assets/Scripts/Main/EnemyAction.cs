@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyAction : MonoBehaviour {
 
-    [SerializeField]
     CollisionManager collisionManagerScript;
     [SerializeField]
     EnemyStatus enemyStatusScript;
@@ -43,6 +42,11 @@ public class EnemyAction : MonoBehaviour {
     {
         float force = playerobj.GetComponent<PlayerStatus>().GetForce();
         Vector2 diff = -playerobj.GetComponent<PlayerStatus>().GetDiff();
+    }
+
+    public void SetCollisionManager(CollisionManager set)
+    {
+        collisionManagerScript = set;
     }
 
     void OnCollisionEnter2D(Collision2D col)

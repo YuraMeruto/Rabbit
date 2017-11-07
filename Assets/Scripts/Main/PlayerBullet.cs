@@ -21,7 +21,6 @@ public class PlayerBullet : MonoBehaviour
     [SerializeField]
     BulletStatus bulletStatusScript;
     int count = 0;
-
     void Update()
     {
         CheckMove();
@@ -47,21 +46,34 @@ public class PlayerBullet : MonoBehaviour
         BulletStatus.Status status = bulletStatusScript.GetStatus();
         Vector2 force = rb2.velocity;
         float quatunion = rb2.angularVelocity;
+        float lagcount = playerStatusScript.GetLagCount();
+        if (playerStatusScript.GetLagCount() == 0.0f)
+        {
+            playerStatusScript.SetLagCount(lagcount);
+        }
+
         if (status == BulletStatus.Status.Moveing)
         {
             if (count == 0)
             {
-
                 count++;
             }
 
-            else if (force == Vector2.zero && quatunion == 0.0f)
+            else if (force == Vector2.zero && quatunion == 0.0f && lagcount < 0.0f)
             {
                 bulletStatusScript.SetStatus(BulletStatus.Status.Stop);
                 playerStatusScript.BoardManagerCheckMoveList();
                 count = 0;
+
             }
+            lagcount -= Time.deltaTime;
+            playerStatusScript.SetLagCount(lagcount);
         }
+    }
+
+    public void SetCollisionManager(CollisionManager set)
+    {
+        collisonManagerScript = set;
     }
 
     void OnCollisionEnter2D(Collision2D col)

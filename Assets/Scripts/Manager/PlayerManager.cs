@@ -21,9 +21,8 @@ public class PlayerManager : MonoBehaviour {
     [SerializeField]
     PostManager postManagerScript;
     PlayerStatus playerStatusScript;
-
-
-
+    [SerializeField]
+    CollisionManager collisionManagerScript;
     public int GetPlayerCount()
     {
         return playerStatusScript.GetCount();
@@ -80,5 +79,16 @@ public class PlayerManager : MonoBehaviour {
     public void SetPlayerStatus(PlayerStatus status)
     {
         playerStatusScript = status;
+    }
+
+    public void Ini(GameObject player)
+    {
+        SetPlayerStatus(player.GetComponent<PlayerStatus>());
+        playerActionScript.SetPlayerBullet(player);
+    }
+
+    public CollisionManager GetCollisionManager()
+    {
+        return collisionManagerScript;
     }
 }

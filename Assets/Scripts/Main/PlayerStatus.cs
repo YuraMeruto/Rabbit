@@ -17,13 +17,9 @@ public class PlayerStatus : MonoBehaviour
     float addForceRate;
     [SerializeField]
     SceneManager sceneManagerscript;
-
-    void Start()
-    {
-        playerManagerScript = GameObject.Find("Managers").GetComponent<PlayerManager>();
-        playerManagerScript.SetPlayerStatus(GetComponent<PlayerStatus>());
-    }
-
+    [SerializeField]
+    float lagCount;
+    float copyLagCount;
     public float GetAddForceRate()
     {
         return addForceRate;
@@ -112,9 +108,34 @@ public class PlayerStatus : MonoBehaviour
         playerManagerScript.SceneStage(status);
     }
 
-    public void SetPlayerScript()
+    public CollisionManager GetCollisionManager()
     {
+        return playerManagerScript.GetCollisionManager();
+    }
 
+    public void SetPlayerManager(PlayerManager set)
+    {
+        playerManagerScript = set;
+    }
+
+    public PlayerManager GetPlayerManager()
+    {
+        return playerManagerScript;
+    }
+
+    public float GetLagCount()
+    {
+        return lagCount;
+    }
+
+    public void SetLagCount(float set)
+    {
+        lagCount = set;
+    }
+
+    public void ResetLagCount()
+    {
+        lagCount = copyLagCount;
     }
 }
 

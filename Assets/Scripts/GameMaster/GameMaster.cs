@@ -7,6 +7,12 @@ public class GameMaster : MonoBehaviour
 
     [SerializeField]
     bool isGamePlay;
+    [SerializeField]
+    IniSet iniSetScript;
+    void Start()
+    {
+        iniSetScript.Ini();
+    }
     public void SetIsGamePlay(bool set)
     {
         isGamePlay = set;

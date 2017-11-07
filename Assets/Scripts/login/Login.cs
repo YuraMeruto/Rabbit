@@ -13,7 +13,8 @@ public class Login : MonoBehaviour
     UserInfo userInfoScript;
     [SerializeField]
     LoginTitle loginTitleScript;
-
+    [SerializeField]
+    string userData;
     void Update()
     {
         Tap();
@@ -23,7 +24,8 @@ public class Login : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            string data = readDataScript.Read();
+            string data = readDataScript.ResourcesRoadCSV(userData);
+            string[] splitdata = data.Split(',');
             userInfoScript.SetValues(data);
             if (userInfoScript.GetId().Length <= 5)
             {

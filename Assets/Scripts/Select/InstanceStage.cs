@@ -28,8 +28,10 @@ public class InstanceStage : MonoBehaviour
     UIManager uiManagerScript;
     [SerializeField]
     PlayerManager playerManagerScript;
-
-    void Start()
+    GameObject playerObj;
+    [SerializeField]
+    CollisionManager collisionManagerScript;
+    public void Ini()
     {
         instancepos = pos.transform.position;
         string readdata = readDataScript.Read();
@@ -57,9 +59,15 @@ public class InstanceStage : MonoBehaviour
                     GameObject backgroundobj = instanceManagerScript.GetInstanceObj(3);
                     Instantiate(backgroundobj, instancepos, Quaternion.identity);
                 }
-                if(castdata == 1)
+
+                if(castdata == 1)//プレイヤーだった場合
                 {
-                    playerManagerScript.SetPlayerStatus(instanceobj.GetComponent<PlayerStatus>());
+                    playerObj = instanceobj;
+                }
+
+                else if(castdata == 2)//エネミーだった場合
+                {
+                    instanceobj.GetComponent<EnemyAction>().SetCollisionManager(collisionManagerScript);
                 }
                 instancepos.x += height;
                 count++;
@@ -67,6 +75,10 @@ public class InstanceStage : MonoBehaviour
             instancepos.y += width;
             instancepos.x = pos.transform.position.x;
         }
-        uiManagerScript.Ini();
+    }
+
+    public GameObject GetPlayerObj()
+    {
+        return playerObj;
     }
 }

@@ -143,5 +143,13 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-
+    public void SetPlayerBullet(GameObject bulletobj)
+     {
+        playerStatusScript = bulletobj.GetComponent<PlayerStatus>();
+        playerBulletScript = bulletobj.GetComponent<PlayerBullet>();
+        playerBulletObj = bulletobj;
+        playerStatusScript.SetPlayerManager(playerManagerScript);
+        playerBulletScript.SetCollisionManager(playerStatusScript.GetCollisionManager());
+        
+    }
 }
